@@ -115,14 +115,17 @@ getFiltered tag = filter (isInfixOf tag)
 removeFiltered :: [Char] -> [[Char]] -> [[Char]]
 removeFiltered tag = filter (not . isInfixOf tag)
 
-removeWhiteSpace = removeSpace . removeIndent
+-- Remove whitespace
+removeWhiteSpace :: [[Char]] -> [[Char]]
+removeWhiteSpace = removeSpaces . removeTabs
 
--- Remove indentation
-removeIndent :: [[Char]] -> [[Char]]
-removeIndent xs = map (snd . break (>'\t')) xs
+-- Remove tabs
+removeTabs :: [[Char]] -> [[Char]]
+removeTabs xs = map (snd . break (>'\t')) xs
 
-removeSpace :: [[Char]] -> [[Char]]
-removeSpace xs = map (snd . break (>' ')) xs
+-- Remove spaces
+removeSpaces :: [[Char]] -> [[Char]]
+removeSpaces xs = map (snd . break (>' ')) xs
 
 -- Strip tags 'tagStart' and 'tagEnd' from [[Char]]
 removeTags :: [Char] -> [Char] -> [[Char]] -> [[Char]]
